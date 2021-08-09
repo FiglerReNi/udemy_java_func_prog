@@ -1,5 +1,7 @@
 package org.example.utils;
 
+import org.example.model.Course;
+
 import java.util.Random;
 import java.util.function.*;
 
@@ -8,6 +10,8 @@ public class FuncInterfaceConstants {
     public static final Predicate<Integer> IS_ODD_PREDICATE = x -> x % 2 != 0;
     public static final Predicate<Integer> IS_EVEN_PREDICATE = x -> x % 2 == 0;
     public static final Predicate<Integer> IS_THREE_MULTIPLIER_PREDICATE = x -> x % 3 == 0;
+    public static final Predicate<Course> REVIEW_SCORE_EXAMINE1 = c -> c.getReviewScore() > 90;
+    public static final Predicate<Course> REVIEW_SCORE_EXAMINE2 = c -> c.getReviewScore() > 95;
     public static final IntPredicate IS_THREE_MULTIPLIER_INT_PREDICATE = x -> x % 3 == 0;
     public static final Function<Integer, Integer> SQUARE_FUNCTION = x -> x * x;
     public static final Function<Integer, Integer> SQUARE_FUNCTION_WITH_TYPE = (Integer x) -> x * x;

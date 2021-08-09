@@ -1,10 +1,11 @@
 package org.example;
 
+import org.example.controller.CourseController;
 import org.example.controller.MethodRef;
+import org.example.model.Course;
 import org.example.utils.FuncInterfaceConstants;
 import org.example.controller.FuncProg;
 import org.example.controller.FuncInterface;
-
 import java.util.List;
 
 
@@ -12,10 +13,30 @@ public class App
 {
     public static void main( String[] args )
     {
-        List<Integer> numbers = List.of(12,9,13,4,6,2,4,12,15);
+        List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
         List<String> courses = List.of("Spring", "Spring Boot", "Api", "Microservices", "AWS", "PCF", "Azure", "Docker");
+        List<Course> coursesList = List.of(
+                new Course("Spring", "Framework", 98, 20000),
+                new Course("Spring Boot", "Framework", 95, 18000),
+                new Course("API", "Microservices", 97, 22000),
+                new Course("Microservices", "Microservices", 96, 25000),
+                new Course("Fullstack", "Fullstack", 91, 14000),
+                new Course("AWS", "Cloud", 92, 21000),
+                new Course("Azure", "Cloud", 99, 21000),
+                new Course("Docker", "Cloud", 92, 20000),
+                new Course("Kubernetes", "Cloud", 91, 20000)
+        );
 
 /*
+        System.out.println(CourseController.anyMatchExampleWithPredicate1(coursesList));
+        System.out.println(CourseController.anyMatchExampleWithPredicate2(coursesList));
+        System.out.println(CourseController.anyMatchExample(coursesList));
+        System.out.println(CourseController.noneMatchExampleWithPredicate(coursesList));
+        System.out.println(CourseController.noneMatchExample1(coursesList));
+        System.out.println(CourseController.allMatchExample1(coursesList));
+        System.out.println(CourseController.allMatchExample2(coursesList));
+        System.out.println(CourseController.allMatchExampleWithPredicate(coursesList));
+
         MethodRef.doUpperCaseWithLambda(courses);
         MethodRef.doUpperCaseWithMethodRef(courses);
         MethodRef.doUpperCaseWithStaticMethod(courses);
