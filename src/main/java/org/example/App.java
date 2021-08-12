@@ -27,7 +27,30 @@ public class App
                 new Course("Kubernetes", "Cloud", 91, 20000)
         );
 
+        System.out.println(CourseController.findFirstExample(coursesList));
+        System.out.println(CourseController.findAnyExample(coursesList));
+
+
+
 /*
+        System.out.println(CourseController.maxExample1(coursesList));
+        System.out.println(CourseController.maxExample2(coursesList));
+        System.out.println(CourseController.minExample1(coursesList));
+        System.out.println(CourseController.minExample2(coursesList));
+        System.out.println(CourseController.maxNoResultExample1(coursesList));
+        System.out.println(CourseController.maxNoResultExample2(coursesList));
+        System.out.println(CourseController.maxNoResultExample3(coursesList));
+        System.out.println(CourseController.takeWhileExample(coursesList));
+        System.out.println(CourseController.dropWhileExample(coursesList));
+        System.out.println(CourseController.limitExample(coursesList));
+        System.out.println(CourseController.skipExample(coursesList));
+        System.out.println(CourseController.skipLimitExample(coursesList));
+        System.out.println(CourseController.sortedExample1(coursesList));
+        System.out.println(CourseController.sortedExample2(coursesList));
+        System.out.println(CourseController.sortedExample3(coursesList));
+        System.out.println(CourseController.sortedExample4(coursesList));
+        System.out.println(CourseController.sortedExample5(coursesList));
+        System.out.println(CourseController.sortedExample6(coursesList));
         System.out.println(CourseController.anyMatchExampleWithPredicate1(coursesList));
         System.out.println(CourseController.anyMatchExampleWithPredicate2(coursesList));
         System.out.println(CourseController.anyMatchExample(coursesList));

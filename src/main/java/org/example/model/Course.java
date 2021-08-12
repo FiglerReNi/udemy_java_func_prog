@@ -49,10 +49,10 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", reviewScore=" + reviewScore +
-                ", numberOfStudents=" + numberOfStudents +
+                 name + " " +
+                 category + " " +
+                 reviewScore + " " +
+                 numberOfStudents +
                 '}';
     }
 }
