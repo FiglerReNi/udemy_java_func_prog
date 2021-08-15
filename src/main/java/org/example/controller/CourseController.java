@@ -3,9 +3,7 @@ package org.example.controller;
 import org.example.model.Course;
 import org.example.service.CourseService;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CourseController {
@@ -172,5 +170,55 @@ public class CourseController {
         return courseList.stream()
                 .filter(c -> c.getReviewScore() < 95)
                 .findAny();
+    }
+
+    public static int sumExample(List<Course> courseList){
+        return courseList.stream()
+                .filter(CourseService.REVIEW_SCORE_EXAMINE2)
+                .mapToInt(Course::getNumberOfStudents)
+                .sum();
+    }
+
+    public static double averageExample(List<Course> courseList){
+        return courseList.stream()
+                .filter(CourseService.REVIEW_SCORE_EXAMINE2)
+                .mapToInt(Course::getNumberOfStudents)
+                .average()
+                .orElse(0);
+    }
+
+    public static long countExample(List<Course> courseList){
+        return courseList.stream()
+                .filter(CourseService.REVIEW_SCORE_EXAMINE2)
+                .mapToInt(Course::getReviewScore)
+                .count();
+    }
+
+    public static int maxExample3(List<Course> courseList){
+        return courseList.stream()
+                .filter(CourseService.REVIEW_SCORE_EXAMINE2)
+                .mapToInt(Course::getNumberOfStudents)
+                .max()
+                .orElse(0);
+    }
+
+    public static Map<String,List<Course>> groupExample1(List<Course> courseList){
+        return courseList.stream()
+                .collect(Collectors.groupingBy(Course::getCategory));
+    }
+
+    public static Map<String,Long> groupExample2(List<Course> courseList){
+        return courseList.stream()
+                .collect(Collectors.groupingBy(Course::getCategory, Collectors.counting()));
+    }
+
+    public static Map<String,Optional<Course>> groupExample3(List<Course> courseList){
+        return courseList.stream()
+                .collect(Collectors.groupingBy(Course::getCategory, Collectors.maxBy(Comparator.comparing(Course::getReviewScore))));
+    }
+
+    public static Map<String,List<String>> groupExample4(List<Course> courseList){
+        return courseList.stream()
+                .collect(Collectors.groupingBy(Course::getCategory, Collectors.mapping(Course::getName, Collectors.toList())));
     }
 }

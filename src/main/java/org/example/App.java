@@ -1,11 +1,9 @@
 package org.example;
 
-import org.example.controller.CourseController;
-import org.example.controller.MethodRef;
+import org.example.controller.*;
 import org.example.model.Course;
 import org.example.utils.FuncInterfaceConstants;
-import org.example.controller.FuncProg;
-import org.example.controller.FuncInterface;
+
 import java.util.List;
 
 
@@ -15,6 +13,7 @@ public class App
     {
         List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
         List<String> courses = List.of("Spring", "Spring Boot", "Api", "Microservices", "AWS", "PCF", "Azure", "Docker");
+        List<String> coursesCopy = List.of("Spring", "Spring Boot", "Api", "Microservices", "AWS", "PCF", "Azure", "Docker");
         List<Course> coursesList = List.of(
                 new Course("Spring", "Framework", 98, 20000),
                 new Course("Spring Boot", "Framework", 95, 18000),
@@ -26,13 +25,42 @@ public class App
                 new Course("Docker", "Cloud", 92, 20000),
                 new Course("Kubernetes", "Cloud", 91, 20000)
         );
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Long.MAX_VALUE);
 
-        System.out.println(CourseController.findFirstExample(coursesList));
-        System.out.println(CourseController.findAnyExample(coursesList));
+
+        System.out.println(StreamOther.stringExample2(courses, coursesCopy));
+        System.out.println(StreamOther.stringExample3(courses, coursesCopy));
+        System.out.println(StreamOther.stringExample4(courses, coursesCopy));
 
 
 
 /*
+        System.out.println(StreamOther.stringExample1(courses));
+        System.out.println(StreamOther.streamStringJoining(courses));
+        System.out.println(StreamOther.stringJoining(courses));
+
+        StreamOther.bigInteger();
+        StreamOther.dynamicStream5();
+        StreamOther.intStreamToList();
+        StreamOther.dynamicStream4();
+        StreamOther.dynamicStream1();
+        StreamOther.dynamicStream2();
+        StreamOther.dynamicStream3();
+        StreamOther.streamReferenceOrPrimitive(numbers);
+        System.out.println(StreamOther.createStreamAndCount());
+        System.out.println(StreamOther.createStreamAndSum());
+
+        System.out.println(CourseController.groupExample1(coursesList));
+        System.out.println(CourseController.groupExample2(coursesList));
+        System.out.println(CourseController.groupExample3(coursesList));
+        System.out.println(CourseController.groupExample4(coursesList));
+        System.out.println(CourseController.sumExample(coursesList));
+        System.out.println(CourseController.averageExample(coursesList));
+        System.out.println(CourseController.countExample(coursesList));
+        System.out.println(CourseController.maxExample3(coursesList));
+        System.out.println(CourseController.findFirstExample(coursesList));
+        System.out.println(CourseController.findAnyExample(coursesList));
         System.out.println(CourseController.maxExample1(coursesList));
         System.out.println(CourseController.maxExample2(coursesList));
         System.out.println(CourseController.minExample1(coursesList));
