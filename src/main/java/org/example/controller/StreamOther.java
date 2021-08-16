@@ -106,4 +106,43 @@ public class StreamOther {
                 .filter(l -> !(l.get(0).equals(l.get(1))))
                 .collect(Collectors.toList());
     }
+
+    public static List<String> stringExample5(List<String> courses){
+        courses.replaceAll(String::toUpperCase);
+        return courses;
+    }
+
+    public static List<String> stringExample6(List<String> courses){
+        courses.removeIf(c -> c.length() < 6);
+        return courses;
+    }
+
+    public static String intermediateOperationWorks1(List<String> courses){
+        return courses.stream()
+                .peek(System.out::println)
+                .filter( c -> c.length() > 11)
+                .map(String::toUpperCase)
+                .peek(System.out::println)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static List<String> intermediateOperationWorks2(List<String> courses){
+        return courses.stream()
+                .peek(System.out::println)
+                .filter( c -> c.length() > 11)
+                .map(String::toUpperCase)
+                .peek(System.out::println)
+                .collect(Collectors.toList());
+    }
+
+    public static long parallelExample1(){
+        return LongStream.range(0, 1000000000).sum();
+    }
+
+    public static long parallelExample2(){
+        return LongStream.range(0, 1000000000).parallel().sum();
+    }
+
+
 }

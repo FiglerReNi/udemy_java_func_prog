@@ -2,18 +2,20 @@ package org.example;
 
 import org.example.controller.*;
 import org.example.model.Course;
-import org.example.utils.FuncInterfaceConstants;
+import org.example.service.ThreadExample;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 
-public class App 
-{
-    public static void main( String[] args )
-    {
+public class App {
+    public static void main(String[] args) throws IOException {
         List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
         List<String> courses = List.of("Spring", "Spring Boot", "Api", "Microservices", "AWS", "PCF", "Azure", "Docker");
         List<String> coursesCopy = List.of("Spring", "Spring Boot", "Api", "Microservices", "AWS", "PCF", "Azure", "Docker");
+        List<String> nonImmutableList = new ArrayList<>(courses);
         List<Course> coursesList = List.of(
                 new Course("Spring", "Framework", 98, 20000),
                 new Course("Spring Boot", "Framework", 95, 18000),
@@ -25,17 +27,55 @@ public class App
                 new Course("Docker", "Cloud", 92, 20000),
                 new Course("Kubernetes", "Cloud", 91, 20000)
         );
+
         System.out.println(Integer.MAX_VALUE);
         System.out.println(Long.MAX_VALUE);
 
+        Thread thread = new Thread(new ThreadExample());
+        thread.start();
 
-        System.out.println(StreamOther.stringExample2(courses, coursesCopy));
-        System.out.println(StreamOther.stringExample3(courses, coursesCopy));
-        System.out.println(StreamOther.stringExample4(courses, coursesCopy));
+        Thread thread1 = new Thread(new ThreadExample());
+        thread1.start();
 
+        Thread thread2 = new Thread(new ThreadExample());
+        thread2.start();
+
+        Thread thread3 = new Thread(() -> {
+            for (int i = 0; i < 10000; i++) {
+                System.out.println(Thread.currentThread().getId() + ": " + i);
+            }
+        }
+        );
+        thread3.start();
+
+        Thread thread4 = new Thread(() -> {
+            IntStream.range(0, 10000).forEach(i -> System.out.println(Thread.currentThread().getId() + ": " + i));
+        });
+        thread4.start();
 
 
 /*
+        FileController.workWithFile1();
+        FileController.workWithFile2();
+        FileController.workWithFile3();
+        FileController.workWithFile4();
+
+        System.out.println(StreamOther.stringExample6(courses));
+        System.out.println(StreamOther.stringExample6(nonImmutableList));
+        System.out.println(StreamOther.stringExample5(courses));
+        System.out.println(StreamOther.stringExample5(nonImmutableList));
+
+        long time1 = System.currentTimeMillis();
+        System.out.println(StreamOther.parallelExample1());
+        System.out.println(System.currentTimeMillis() - time1);
+        long time2 = System.currentTimeMillis();
+        System.out.println(StreamOther.parallelExample2());
+        System.out.println(System.currentTimeMillis() - time2);
+        System.out.println(StreamOther.intermediateOperationWorks1(courses));
+        System.out.println(StreamOther.intermediateOperationWorks2(courses));
+        System.out.println(StreamOther.stringExample2(courses, coursesCopy));
+        System.out.println(StreamOther.stringExample3(courses, coursesCopy));
+        System.out.println(StreamOther.stringExample4(courses, coursesCopy));
         System.out.println(StreamOther.stringExample1(courses));
         System.out.println(StreamOther.streamStringJoining(courses));
         System.out.println(StreamOther.stringJoining(courses));
