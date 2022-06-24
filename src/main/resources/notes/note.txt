@@ -1,0 +1,210 @@
+https://www.baeldung.com/java-8-streams-introduction
+https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+https://stackify.com/streams-guide-java-8/
+https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html
+https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html
+https://tmx.udemy.com/course/functional-programming-with-java/
+
+Method refenrence:
+	• Lamba exceptiont egyszerűbben írhatunk fel vele bizonyos esetekben
+	• Hívhatunk vele static methodokat: osztály::method
+	• Hívhatunk vele normál methodokat is: osztály::method
+	• Hívhatunk vele konstruktort is, ha nincs paramétere osztély::new
+
+Lambda:
+	• Methodot tudunk létrehozni vele egyszerűen, interface implementálásakor
+	(a, b) -> a+b;
+	• A háttérben mindig egy @FunctionalInterface kell legyen, vagyis olyan interface, aminek csak egy methodja van, és ezt implementálhatjuk lambda segítségével.
+
+Parallel:
+	Több szálon futhat a streamben a feladat, pl a reduce függvény működhet így.
+
+Intermediate operation:
+	Bármennyi lehet belőle egymás után, streamet ad vissza
+		Filter, map, distinct, sorted
+
+Terminal operation:
+	Csak egy lehet a stream utolsó tagjaként, utána már nem jöhet intermediate operátor
+		ForEach, collect, reduce, allMatch, noneMatch, anyMatch
+
+Function decriptor:
+	A functional interfacek abstract methodja
+
+Behavior parameterization:
+	Egy methodnak paraméterként adhatunk át egy lambda kifejezést, mivel kiterjeszt egy funkcionális interfacet, amit meg tudunk adni az adott methodnak, hogy ilyet várjon.
+
+Higher Order Function:
+	Olyan function, ami egy másik functionnal tér vissza.
+
+Parallelizing:
+	Egy feladatot több szálon képes elvégezni, például sok szám összeadását egy streamben két részre osztja, egyik szálon összeadja az első felét, másik szálon a másik felét és a végén a két összeget.
+
+Eszközök:
+  filter
+  	streamet ad vissza, booleant visszaadó függyvényt vár, intermediate operation
+  map, mapToInt, mapToObj
+  	streamet ad vissza, módosít a kapott elemeken, intermediate operation
+  			mapToObj(BigInteger::valueOf)
+  flatMap
+  	A szerkezet mélységét csökkenti eggyel, pl String[] -> String, Stream<Stream<String>> -> Stream<String>
+  distinct
+  	streamet ad vissza, intermediate operation
+  sorted
+  	streamet ad vissza, intermediate operation
+  			Comparator.NaturalOrder
+  			Comparator.ReverseOrder
+  			Comparator.comparing
+  			Comparator.comparingInt
+  			thenComparing
+  			thenComparingInt
+  			reversed
+  limit
+  	streamet ad vissza, intermediate operation
+  skip
+  	streamet ad vissza, intermediate operation
+  takeWhile, dropWhile
+  	streamet ad vissza, intermediate operation
+  peek
+  	streamet ad vissza, intermediate operation
+  parallel
+  	Több szálon végez egy feladatot
+
+
+  reduce
+  	a stream alapján egy értéket ad vissza, pl. összeget, szorzatot stb. Parallel működhet, terminal operation
+  			reduce(BigInteger.ONE, BigInteger::multiply)
+  forEach
+  	voidot ad vissza,módosíthat a kapott értéken, terminal operation
+  collect
+  	streamet alakít más típussá pl list, hashMap, terminal operation
+  			Collectors.toList
+  			Collectors.groupingBy(<mi alapján>)
+  			Collectors.groupingBy(<mi alapján>, Collectors.counting)
+  			Collectors.groupingBy(<mi alapján>, Collectors.mayBy(Comparator))
+  			Collectors.groupingBy(<mi alapján>, Collectors.mapping)
+  			Collectors.joining
+  allMatch, noneMatch, anyMatch
+  	booleant ad vissza, terminal operation
+  max
+  	mindig a sorban utolsó elemmel tér vissza, terminal operation
+  	a stream alapján egy értéket ad vissza
+  	visszatérési értéke optional is lehet
+  			Comparator.NaturalOrder
+  			Comparator.ReverseOrder
+  			Comparator.comparing
+  			Comparator.comparingInt
+  			thenComparing
+  			thenComparingInt
+  			reversed
+  min
+  	mindig a sorban első elemmel tér vissza, terminal operation
+  	a stream alapján egy értéket ad vissza
+  	visszatérési értéke optional is lehet
+  			Comparator.NaturalOrder
+  			Comparator.ReverseOrder
+  			Comparator.comparing
+  			Comparator.comparingInt
+  			thenComparing
+  			thenComparingInt
+  			reversed
+  findFirst, findAny
+  	visszatérési értéke optional is lehet, terminal operation
+  	a stream alapján egy értéket ad vissza
+  sum, count
+  	a stream alapján egy értéket ad vissza, terminal operation
+  average
+  	visszatérési értéke optional is lehet, terminal operation
+  	a stream alapján egy értéket ad vissza
+
+
+  Stream létrehozása:
+  	stream – wrapper a primitívek esetében, pl int helyett Integert használ, amiken meg tudjuk hívni azok sem tudnak primitívet tárolni, pl List
+  	Stream.of – wrapper a primitívek esetében, pl int helyett Integert használ, amiken meg tudjuk hívni azok sem tudnak primitívet tárolni, pl List
+  	Arrays.stream() - arrayből csinál streamet, így lehet primitivekből, mivel az array tud primitivet tárolni.
+  				Átalakítás nélkül közvetlenül meg lehet hívni rajta pl. min(), max(), average(), sum()
+  	IntStream.range() - int primitivekből álló streamet hot létre, range utolsó száma nem kerül bele
+  	IntStream.rangeClosed() - int primitivekből álló streamet hot létre, range utolsó száma is bele kerül
+  	IntStream.iterate().limit()
+
+
+  Tudnivalók:
+  	• Primitív streameken nem lehet a collect(Collectors.toList)-et használni, mert nem tárol a List primitívet.
+  	Használni kell előtte a boxed() -ot, ami egy wrapper
+  	• Kötelező a streamek végére a terminal operator
+  	• A streamek végén lévő terminal operator meghatározza, hogy mivel kell visszatérnie a streamnek. Ezt figyelembe veszi az intermediate operatorok futásakor és csak annyi fut le belőle, ami kell a végeredményhez, pl ha egy elemet keresünk, és már a második passzol, akkor a többit nem nézi végig.
+
+
+  Egyéb:
+  	List.replaceAll
+  	List.removeIf
+  	Files.lines(Paths.get("file.name")).forEach
+  		streamet ad vissza, használhatjuk rajta a stream functionokat
+  	Files.list(Paths.get(".")).forEach
+  		kilistázza a projekt könyvtárait, file-jait
+  	Files.list(Paths.get(".")).filter(Files::isDirectory).forEach
+  		csak könyvtárak kilistázása
+
+JShell:
+  Parancssorban használható eszköz, java kódokat tudunk írni benne, és egyből visszaadja a kódok eredményét, nem kell System.out.println-t sem használni.
+  Tanuláshoz, gyakorláshoz egyszerűbb.
+
+Beépített Functional Interfaces:
+  java.util.functions
+
+  Predicate<T>
+  	boolean test(T t)
+  	T - bemenő érték típusa
+
+  BiPredicate<T, U>
+  	boolean test(T t, U u)
+  	T - első bemenő érték típusa
+  	U - második bemenő érték típusa
+
+  Function<T, R>
+  	R apply(T t)
+  	T - bemenő érték típusa
+  	R - visszatérési érték típusa
+
+  BiFunction<T, U, R>
+  	R apply(T t)
+  	T - első bemenő érték típusa
+  	U - második bemenő érték típusa
+  	R - visszatérési érték típusa
+
+  Consumer<T>
+  	void accept(T t)
+  	T - bemenő érték típusa
+
+  BiConsumer<T, U>
+  	void accept(T t, U u)
+  	T - első bemenő érték típusa
+  	U - második bemenő érték típusa
+
+  BinaryOperator<T>
+  	T apply(T t, T t)
+  	T - két bemenő értéke van, mindkettő típusa ugyanaz és a visszatérési érték típusa is ugyanaz
+
+  UnaryOperator<T>
+  	T apply(T t)
+  	T – egy bemenő értéke van, és ennek típusa megegyezik a visszatérési érték típusával
+
+  Supplier<R>
+  	R get()
+  	R - visszatérési érték típusa
+  	Nincs bemenő paramétere
+  	Ez akkor hasznos ha példányosítunk, pl. Factory pattern esetén lehet hasznos vagy random számok generálásához.
+
+  Int-, Long-, Double-:
+  	Lehetővé teszi primitívek használatát, pl. Integer helyett az int használatát. Ez azért jobb mert nem kell a wrappert használnia a kódnak és ki be csomagolnia az int és Integer között. IntBinaryOperator
+  		• IntConsumer
+  		• IntFunction
+  		• IntPredicate
+  		• IntSupplier
+  		• IntUnaryOperator
+
+Optional:
+  Bizonyos függvények visszatérési értéke lehet optional is.
+  Ha például a max vagy a min nem adna vissza értéket, akkor Optional.empty-vel tér vissza automatikusan.
+  Ez többféleképpen felülírható:
+  	.orElse
+    .orElseThrow
